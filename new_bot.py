@@ -19,6 +19,9 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 if not BOT_TOKEN:
     raise RuntimeError("BOT_TOKEN must be set in .env")
+REPLY_CHANCE = os.getenv("REPLY_CHANCE")
+if not REPLY_CHANCE:
+    raise RuntimeError("REPLY_CHANCE must be set in .env")
 MARKOV_ORDER = 2
 MAX_WORDS = 100
 DATABASE_URL = "sqlite+aiosqlite:///markov_chain.db"
@@ -169,7 +172,7 @@ async def handle_message(message: Message) -> None:
         '@mudrets_robot' in message.text.lower()
     )
 
-    if not trigger_conditions and random.random() > 0.1:
+    if not trigger_conditions and random.random() > REPLY_CHANCE:
         return
 
     await asyncio.sleep(random.uniform(1, 3))
