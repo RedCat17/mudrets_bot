@@ -1,6 +1,9 @@
 import random
 import logging
 import asyncio
+import os
+
+from dotenv import load_dotenv
 from contextlib import asynccontextmanager
 from typing import List, Tuple, Optional, AsyncGenerator
 from sqlalchemy import Column, String, Integer, func, select, update
@@ -12,7 +15,10 @@ from aiogram.types import Message
 from aiogram.enums import ParseMode
 
 # Configuration
-BOT_TOKEN = "8169904547:AAGQjVqEYa8yfeidtuPjdi3LxElbfm_0WXM"
+load_dotenv()
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+if not BOT_TOKEN:
+    raise RuntimeError("BOT_TOKEN must be set in .env")
 MARKOV_ORDER = 2
 MAX_WORDS = 100
 DATABASE_URL = "sqlite+aiosqlite:///markov_chain.db"
