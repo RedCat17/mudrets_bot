@@ -205,6 +205,6 @@ if __name__ == "__main__":
     dp.shutdown.register(on_shutdown)
     
     try:
-        asyncio.run(dp.start_polling(bot))
+        asyncio.run(dp.start_polling(bot, skip_updates=True))
     except KeyboardInterrupt:
         logger.info("Bot stopped by keyboard interrupt")
